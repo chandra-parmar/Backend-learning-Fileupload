@@ -207,53 +207,7 @@ const videoUpload = async(req,res)=>{
   }
 }
 
-//image size reducer compress then upload
-const imageSizeReducer = async (req, res) => {
-  try {
-    const { name, email, tags } = req.body;
-    console.log(name, email, tags);
 
-    if (!req.files || !req.files.file) {
-      return res.status(400).json({
-        success: false,
-        message: "No file uploaded or file field name is incorrect.",
-      });
-    }
-
-    const file = req.files.file;
-    console.log(file);
-
-    const supportedType = ["jpg", "jpeg", "png"];
-    const fileType = file.name.split(".")[1]?.toLowerCase();
-
-    if (!fileType || !supportedType.includes(fileType)) {
-      return res.status(400).json({
-        success: false,
-        message: "File format not supported",
-      });
-    }
-
-    const response = await uploadFileToCloudinary(file, "imageupload", 30);
-
-    const fileData = await File.create({
-      name,
-      tags,
-      email,
-      imageUrl: response.secure_url,
-    });
-
-    res.status(200).json({
-      success: true,
-      message: "Compressed image uploaded successfully",
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({
-      success: false,
-      message: "Something went wrong",
-    });
-  }
-};
 
 
 
@@ -264,7 +218,7 @@ module.exports = {
   fileUpload,
   imageUpload,
   videoUpload,
-  imageSizeReducer
+  
   
   
 };

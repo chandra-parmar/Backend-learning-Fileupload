@@ -8,7 +8,7 @@ const { fileUpload ,imageUpload,videoUpload} = require('../controllers/fileUploa
 
 //api route
 router.post('/localFileUpload',fileUpload)
- router.post('/imageUpload',imageUpload)
+router.post('/imageUpload',imageUpload)
 router.post('/videoUpload',videoUpload)
 
 
